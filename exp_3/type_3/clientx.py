@@ -1,7 +1,7 @@
 import socket
 
 # Server configuration (replace with server's IP address)
-SERVER_IP = "192.168.189.61"  # Use the server's IP
+SERVER_IP = "192.168.6.61"  # Use the server's IP
 SERVER_PORT = 5000
 
 # Create and connect the socket

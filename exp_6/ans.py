@@ -10,23 +10,30 @@ arp_table = {
 # Generate reverse mapping for RARP
 rarp_table = {v: k for k, v in arp_table.items()}
 
+
 # ARP function
 def arp(ip_address):
     print("\n[ARP Request]")
     if ip_address in arp_table:
-        print(f"ARP Reply: MAC address for IP {ip_address} is {arp_table[ip_address]}")
+        print(
+            f"ARP Reply: MAC address for IP {ip_address} is {arp_table[ip_address]}")
     else:
         print(f"No entry found for IP address: {ip_address}")
 
 # RARP function
+
+
 def rarp(mac_address):
     print("\n[RARP Request]")
     if mac_address in rarp_table:
-        print(f"RARP Reply: IP address for MAC {mac_address} is {rarp_table[mac_address]}")
+        print(
+            f"RARP Reply: IP address for MAC {mac_address} is {rarp_table[mac_address]}")
     else:
         print(f"No entry found for MAC address: {mac_address}")
 
 # Main function
+
+
 def main():
     while True:
 
@@ -47,6 +54,7 @@ def main():
             break
         else:
             print("Invalid choice! Please try again.")
+
 
 if __name__ == "__main__":
     main()

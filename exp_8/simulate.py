@@ -4,9 +4,8 @@
 # chosen) best k lines are flooded. Compare flooding with deterministic routing (k = 1) in terms of both delay and the bandwidth
 # used.
 
-import random
-import heapq
 from collections import defaultdict, deque
+
 
 class Packet:
     def __init__(self, src, dst, ttl):
@@ -19,6 +18,7 @@ class Packet:
         new_pkt = Packet(self.src, self.dst, self.ttl)
         new_pkt.path = self.path[:]
         return new_pkt
+
 
 class Network:
     def __init__(self, graph):
@@ -65,12 +65,14 @@ class Network:
                 for neighbor in neighbors:
                     new_pkt = pkt.copy()
                     if tuple(new_pkt.path + [neighbor]) not in visited[(neighbor, new_pkt.ttl)]:
-                        visited[(neighbor, new_pkt.ttl)].add(tuple(new_pkt.path + [neighbor]))
+                        visited[(neighbor, new_pkt.ttl)].add(
+                            tuple(new_pkt.path + [neighbor]))
                         next_queue.append((neighbor, current, new_pkt))
 
             queue = next_queue
 
         return reached_time if reached_time else -1, total_transmissions
+
 
 graph = {
     'A': ['B', 'C'],
@@ -82,14 +84,17 @@ graph = {
 
 network = Network(graph)
 
-strategies = ['All_lines_flooded', 'except_input', 'best_k_flooded', 'deterministic']
+strategies = ['All_lines_flooded', 'except_input',
+              'best_k_flooded', 'deterministic']
 results = {}
 
 for strategy in strategies:
-    delay, bandwidth = network.simulate('A', 'E', ttl=5, strategy=strategy, k=1)
+    delay, bandwidth = network.simulate(
+        'A', 'E', ttl=5, strategy=strategy, k=1)
     results[strategy] = {'delay': delay, 'bandwidth_used': bandwidth}
 
 print("\nRouting Strategy Comparison")
 print("===========================")
 for strategy, stats in results.items():
-    print(f"{strategy.title():<20} | Delay: {stats['delay']:<2} | Bandwidth: {stats['bandwidth_used']}")
+    print(
+        f"{strategy.title():<20} | Delay: {stats['delay']:<2} | Bandwidth: {stats['bandwidth_used']}")
